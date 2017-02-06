@@ -53,4 +53,7 @@
     <string name="listview_anticipate_overshoot_interpolator">Anticipate overshoot</string>
     <string name="listview_bounce_interpolator">Bounce</string>
     <string name="shake_clean_notification">Notification bar notification shaking cleaning</string>
+    <!-- Quick settings disable on lockscreen -->
+    <string name="block_on_secure_keyguard_title">Disable quick settings</string>
+    <string name="block_on_secure_keyguard_summary">Disables quick settings in the keyguard for a secure lock only</string>
 </resources>

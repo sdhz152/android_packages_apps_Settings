@@ -37,6 +37,7 @@ import android.os.UserManager;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.support.v14.preference.SwitchPreference;
+import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.DropDownPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
@@ -72,6 +73,7 @@ import static android.provider.Settings.System.SCREEN_OFF_TIMEOUT;
 import static com.android.settingslib.RestrictedLockUtils.EnforcedAdmin;
 
 import cyanogenmod.hardware.CMHardwareManager;
+import com.android.internal.widget.LockPatternUtils;
 
 public class DisplaySettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, Indexable {
@@ -98,6 +100,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String PREF_QS_TRANSPARENT_SHADE = "qs_transparent_shade";
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
+    private static final String PREF_BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
 
     private Preference mFontSizePref;
 
@@ -109,10 +112,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private SwitchPreference mTapToWakePreference;
     private SwitchPreference mAutoBrightnessPreference;
     private SwitchPreference mCameraGesturePreference;
+    private SwitchPreference mBlockOnSecureKeyguard;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
 
     private SeekBarPreference mQSShadeAlpha;
+    private static final int MY_USER_ID = UserHandle.myUserId();
 
     @Override
     protected int getMetricsCategory() {
@@ -124,6 +129,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         super.onCreate(savedInstanceState);
         final Activity activity = getActivity();
         final ContentResolver resolver = activity.getContentResolver();
+        final LockPatternUtils lockPatternUtils = new LockPatternUtils(getActivity());
 
         addPreferencesFromResource(R.xml.display_settings);
 
@@ -135,6 +141,16 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 && getResources().getBoolean(
                         com.android.internal.R.bool.config_dreamsSupported) == false) {
             getPreferenceScreen().removePreference(mScreenSaverPreference);
+        }
+
+        mBlockOnSecureKeyguard = (SwitchPreference) findPreference(PREF_BLOCK_ON_SECURE_KEYGUARD);
+        if (lockPatternUtils.isSecure(MY_USER_ID)) {
+            mBlockOnSecureKeyguard.setChecked(Settings.Secure.getInt(resolver,
+                    Settings.Secure.STATUS_BAR_LOCKED_ON_SECURE_KEYGUARD, 1) == 1);
+            mBlockOnSecureKeyguard.setOnPreferenceChangeListener(this);
+        } else if (mBlockOnSecureKeyguard != null) {
+            PreferenceScreen prefSet = getPreferenceScreen();
+            prefSet.removePreference(mBlockOnSecureKeyguard);
         }
 
         // QS shade alpha
@@ -489,6 +505,11 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.LISTVIEW_ANIMATION,
                     listviewanimation);
             mListViewAnimation.setSummary(mListViewAnimation.getEntries()[index]);
+        }
+        if (preference == mBlockOnSecureKeyguard) {
+            Settings.Secure.putInt(getContentResolver(),
+                    Settings.Secure.STATUS_BAR_LOCKED_ON_SECURE_KEYGUARD,
+                    (Boolean) objValue ? 1 : 0);
         }
         if (preference == mListViewInterpolator) {
             int listviewinterpolator = Integer.valueOf((String) objValue);

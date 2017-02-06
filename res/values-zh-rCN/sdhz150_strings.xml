@@ -49,4 +49,7 @@
     <string name="listview_anticipate_overshoot_interpolator">到达终点超出一小步然后回到终点</string>
     <string name="listview_bounce_interpolator">到达终点产生弹球效果，弹几下回到终点</string>
     <string name="shake_clean_notification">通知栏通知晃动清理</string>
+    <!-- Quick settings disable on lockscreen -->
+    <string name="block_on_secure_keyguard_title">禁用锁屏通知栏下拉</string>
+    <string name="block_on_secure_keyguard_summary">禁用锁屏通知栏下拉，非安全锁屏无效</string>
 </resources>
