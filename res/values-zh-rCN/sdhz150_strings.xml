@@ -48,4 +48,5 @@
     <string name="listview_overshoot_interpolator">快速到达终点超出一小步然后回到终点</string>
     <string name="listview_anticipate_overshoot_interpolator">到达终点超出一小步然后回到终点</string>
     <string name="listview_bounce_interpolator">到达终点产生弹球效果，弹几下回到终点</string>
+    <string name="shake_clean_notification">通知栏通知晃动清理</string>
 </resources>

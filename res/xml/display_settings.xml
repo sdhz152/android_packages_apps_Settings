@@ -163,6 +163,11 @@
          android:key="transparent__shade"
          android:title="@string/qs_transparent_shade" >
 
+         <com.android.settings.sdhz150.SystemSettingSwitchPreference
+	 	android:key="shake_clean_notification"
+	 	android:title="@string/shake_clean_notification"
+	 	android:defaultValue="true" />
+
         <com.android.settings.sdhz150.SeekBarPreference
             android:key="qs_transparent_shade"
             android:title="@string/qs_transparent_shade"

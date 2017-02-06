@@ -52,4 +52,5 @@
     <string name="listview_overshoot_interpolator">Overshoot</string>
     <string name="listview_anticipate_overshoot_interpolator">Anticipate overshoot</string>
     <string name="listview_bounce_interpolator">Bounce</string>
+    <string name="shake_clean_notification">Notification bar notification shaking cleaning</string>
 </resources>
