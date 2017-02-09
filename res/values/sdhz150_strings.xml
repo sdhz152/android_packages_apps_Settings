@@ -65,4 +65,8 @@
     <string name="omniswitch_first_time_title">Information</string>
     <string name="omniswitch_first_time_message">Make sure you have enabled OmniSwitch. You can do this by using \"Settings\" below</string>
     <string name="omniswitch_settings_title">OmniSwitch</string>
+    <!-- Quick settings tiles columns and rows config -->
+    <string name="qs_layout_category">Rows and columns</string>
+    <string name="qs_rows_portrait_title">Rows (portrait)</string>
+    <string name="qs_columns_title">Columns</string>
 </resources>

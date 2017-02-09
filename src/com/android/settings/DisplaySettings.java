@@ -101,6 +101,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_LISTVIEW_ANIMATION = "listview_animation";
     private static final String KEY_LISTVIEW_INTERPOLATOR = "listview_interpolator";
     private static final String PREF_BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
+    private static final String PREF_ROWS_PORTRAIT = "qs_rows_portrait";
+    private static final String PREF_COLUMNS = "qs_columns";
 
     private Preference mFontSizePref;
 
@@ -115,6 +117,8 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private SwitchPreference mBlockOnSecureKeyguard;
     private ListPreference mListViewAnimation;
     private ListPreference mListViewInterpolator;
+    private ListPreference mRowsPortrait;
+    private ListPreference mQsColumns;
 
     private SeekBarPreference mQSShadeAlpha;
     private static final int MY_USER_ID = UserHandle.myUserId();
@@ -152,6 +156,20 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             PreferenceScreen prefSet = getPreferenceScreen();
             prefSet.removePreference(mBlockOnSecureKeyguard);
         }
+
+        mRowsPortrait = (ListPreference) findPreference(PREF_ROWS_PORTRAIT);
+        int rowsPortrait = Settings.Secure.getInt(getContentResolver(),
+                Settings.Secure.QS_ROWS_PORTRAIT, 3);
+        mRowsPortrait.setValue(String.valueOf(rowsPortrait));
+        mRowsPortrait.setSummary(mRowsPortrait.getEntry());
+        mRowsPortrait.setOnPreferenceChangeListener(this);
+
+        mQsColumns = (ListPreference) findPreference(PREF_COLUMNS);
+        int columnsQs = Settings.Secure.getInt(getContentResolver(),
+                Settings.Secure.QS_COLUMNS, 3);
+        mQsColumns.setValue(String.valueOf(columnsQs));
+        mQsColumns.setSummary(mQsColumns.getEntry());
+        mQsColumns.setOnPreferenceChangeListener(this);
 
         // QS shade alpha
         mQSShadeAlpha = (SeekBarPreference) findPreference(PREF_QS_TRANSPARENT_SHADE);
@@ -517,6 +535,20 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getContentResolver(), Settings.System.LISTVIEW_INTERPOLATOR,
                     listviewinterpolator);
             mListViewInterpolator.setSummary(mListViewInterpolator.getEntries()[index]);
+        }
+        if (preference == mRowsPortrait) {
+            int intValue = Integer.valueOf((String) objValue);
+            int index = mRowsPortrait.findIndexOfValue((String) objValue);
+            Settings.Secure.putInt(getContentResolver(),
+                    Settings.Secure.QS_ROWS_PORTRAIT, intValue);
+            preference.setSummary(mRowsPortrait.getEntries()[index]);
+        }
+        if (preference == mQsColumns) {
+            int intValue = Integer.valueOf((String) objValue);
+            int index = mQsColumns.findIndexOfValue((String) objValue);
+            Settings.Secure.putInt(getContentResolver(),
+                    Settings.Secure.QS_COLUMNS, intValue);
+            preference.setSummary(mQsColumns.getEntries()[index]);
         }
         if (preference == mNightModePreference) {
             try {

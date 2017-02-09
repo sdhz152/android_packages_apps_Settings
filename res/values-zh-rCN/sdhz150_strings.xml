@@ -65,4 +65,8 @@
     <string name="screenshot_type_title">屏幕截图类型</string>
     <string name="screenshot_type_fullscreen">采取全屏幕截图</string>
     <string name="screenshot_type_partial">在要作为屏幕截图拍摄的区域上拖动选择</string>
+    <!-- Quick settings tiles columns and rows config -->
+    <string name="qs_layout_category">快速设置磁贴行和列配置</string>
+    <string name="qs_rows_portrait_title">磁贴显示行数（纵向）</string>
+    <string name="qs_columns_title">磁贴列数</string>
 </resources>
