@@ -389,6 +389,11 @@
             android:entries="@array/track_frame_time_entries"
             android:entryValues="@array/track_frame_time_values" />
 
+        <com.android.settings.sdhz150.GlobalSettingSwitchPreference
+             android:key="show_cpu"
+             android:title="@string/show_cpu_title"
+             android:summary="@string/show_cpu_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:key="debug_applications_category"

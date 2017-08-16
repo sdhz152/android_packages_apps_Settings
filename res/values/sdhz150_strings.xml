@@ -63,4 +63,6 @@
     <!-- Quick unlock -->
    <string name="unlock_quick_unlock_control_title">Quick unlock</string>
    <string name="unlock_quick_unlock_control_summary">Unlock automatically when the correct PIN/password is entered</string>
+    <string name="show_cpu_title">Show CPU info</string>
+    <string name="show_cpu_summary">Screen overlay showing current CPU info</string>
 </resources>

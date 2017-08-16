@@ -63,4 +63,6 @@
     <!-- Quick unlock -->
    <string name="unlock_quick_unlock_control_title">快速解锁</string>
    <string name="unlock_quick_unlock_control_summary">输入正确的PIN /密码时自动解锁</string>
+    <string name="show_cpu_title">显示CPU信息</string>
+    <string name="show_cpu_summary">显示当前CPU信息的屏幕叠加</string>
 </resources>
