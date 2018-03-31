@@ -347,6 +347,9 @@
     <!-- LineageOS legal -->
     <string name="lineagelicense_title">LineageOS legal</string>
 
+    <!-- QuickSettings Panel Transparency -->
+    <string name="qs_panel_alpha_title">Transparency</string>
+
     <!-- Volume settings - Volume adjustment sound -->
     <string name="volume_adjust_sounds_title">Volume adjustment sounds</string>
 
