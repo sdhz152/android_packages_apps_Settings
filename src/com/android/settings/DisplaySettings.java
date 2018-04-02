@@ -19,6 +19,22 @@ package com.android.settings;
 import android.content.Context;
 import android.provider.SearchIndexableResource;
 
+import android.content.Context;
+import android.content.ContentResolver;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.os.UserHandle;
+import android.provider.Settings;
+
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.preference.Preference.OnPreferenceChangeListener;
+import android.support.v14.preference.SwitchPreference;
+import com.android.settings.preferences.CustomSeekBarPreference;
+import com.android.settings.R;
+
 import com.android.internal.hardware.AmbientDisplayConfiguration;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.settings.dashboard.DashboardFragment;
@@ -46,7 +62,7 @@ import com.android.settingslib.core.lifecycle.Lifecycle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisplaySettings extends DashboardFragment {
+public class DisplaySettings extends DashboardFragment implements OnPreferenceChangeListener {
     private static final String TAG = "DisplaySettings";
 
     public static final String KEY_AUTO_BRIGHTNESS = "auto_brightness";
@@ -55,6 +71,9 @@ public class DisplaySettings extends DashboardFragment {
 
     private static final String KEY_SCREEN_TIMEOUT = "screen_timeout";
     private static final String KEY_AMBIENT_DISPLAY = "ambient_display";
+    private static final String QS_PANEL_ALPHA = "qs_panel_alpha";
+
+    private CustomSeekBarPreference mQsPanelAlpha;
 
     @Override
     public int getMetricsCategory() {
@@ -85,6 +104,20 @@ public class DisplaySettings extends DashboardFragment {
     @Override
     protected int getHelpResource() {
         return R.string.help_uri_display;
+    }
+
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+
+        final ContentResolver resolver = getActivity().getContentResolver();
+
+        mQsPanelAlpha = (CustomSeekBarPreference) findPreference(QS_PANEL_ALPHA);
+        int qsPanelAlpha = Settings.System.getIntForUser(resolver,
+                Settings.System.QS_PANEL_BG_ALPHA, 255, UserHandle.USER_CURRENT);
+        mQsPanelAlpha.setValue(qsPanelAlpha);
+        mQsPanelAlpha.setOnPreferenceChangeListener(this);
+
     }
 
     private static List<AbstractPreferenceController> buildPreferenceControllers(
@@ -143,4 +176,15 @@ public class DisplaySettings extends DashboardFragment {
                     return buildPreferenceControllers(context, null);
                 }
             };
+
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mQsPanelAlpha) {
+            int bgAlpha = (Integer) newValue;
+            Settings.System.putIntForUser(getContentResolver(),
+                    Settings.System.QS_PANEL_BG_ALPHA, bgAlpha,
+                    UserHandle.USER_CURRENT);
+            return true;
+        }
+        return false;
+     }
 }

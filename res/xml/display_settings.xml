@@ -21,6 +21,14 @@
     android:title="@string/display_settings"
     settings:keywords="@string/keywords_display">
 
+    <com.android.settings.preferences.CustomSeekBarPreference
+        android:key="qs_panel_alpha"
+        android:title="@string/qs_panel_alpha_title"
+        android:max="255"
+        settings:min="0"
+        settings:units=""
+        android:persistent="false" />
+
     <Preference
         android:key="brightness"
         android:title="@string/brightness"
