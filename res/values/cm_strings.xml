@@ -334,12 +334,6 @@
     <string name="app_ops_reset_confirm_title">Confirm counters reset</string>
     <string name="app_ops_reset_confirm_mesg">Are you sure you wish to reset counters?</string>
 
-    <!-- lineageos Settings -->
-    <string name="lineageos_settings_activity">Customizations</string>
-    <string name="customizations_title">@string/lineageos_settings_activity</string>
-    <string name="lineageos_settings_activity_summary">Some stuff I haz no real words for</string>
-    <!-- Help URI, Customizations [DO NOT TRANSLATE] -->
-    <string name="help_uri_customizations" translatable="false"></string>
     <string name="ok">OK</string>
 
     <string name="security_privacy_settings_title">Security &amp; privacy</string>
